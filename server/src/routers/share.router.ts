@@ -17,6 +17,6 @@ function shareHandler(fn: Function) {
 }
 
 shareRouter.post('/share/brain', shareHandler(auth), shareHandler(shareBrain));
-shareRouter.get('/brain/:shareLink', shareHandler(auth), shareHandler(getAnotherUserBrain));
+shareRouter.get('/brain/:shareLink', shareHandler(getAnotherUserBrain));
 
 export default shareRouter;

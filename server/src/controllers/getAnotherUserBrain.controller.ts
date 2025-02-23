@@ -16,7 +16,7 @@ export default async function getAnotherUserBrain(req: Request, res: Response) {
         }
 
         const userId = isUserBrain.userId;
-        const userBrainCache = await Content.find({userId});
+        const userBrainCache = await Content.find({userId}).populate('userId', 'username');
 
         return res.status(200).json({
             success: true,
