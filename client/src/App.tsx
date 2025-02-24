@@ -1,10 +1,16 @@
+import { Button } from "./components/Button"
 import { Card } from "./components/Card"
+import { CreateContentModal } from "./components/CreateContentModal"
 
 function App() {
 
   return (
-    <div className="bg-slate-200 h-screen w-screen flex justify-center items-center">
+    <div>
+      <Button text="Add Content" variant="primary" size="md" onClick={() => alert("Pannu")}/>
       <Card />
+      <div>
+        <CreateContentModal  open={true}/>
+      </div>
     </div>
   )
 }

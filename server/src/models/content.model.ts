@@ -14,10 +14,10 @@ const contentSchema = new Schema({
         type: String,
         required: true
     },
-    tags: [{
-        type: Types.ObjectId,
-        ref: 'Tag',
-    }],
+    description: {
+        type: String,
+        required: true
+    },
     userId: { 
         type: Types.ObjectId,
         ref: 'User',

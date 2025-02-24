@@ -5,7 +5,8 @@ interface ButtonProps {
     text: string,
     size: "sm" | "md" | "lg",
     startIcon?: ReactElement
-    onClick: () => void
+    type?: "submit"
+    onClick?: () => void
 }
 
 const variantStyles = {

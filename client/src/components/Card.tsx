@@ -1,5 +1,6 @@
 import { Share } from "../icons/Share"
 import { Trash } from "../icons/Trash"
+import Embed from "react-embed"
 
 export function Card(){
     return <div className="border border-gray-300 shadow-sm bg-white h-80 w-64 rounded-lg">
@@ -18,6 +19,10 @@ export function Card(){
                     <Trash />
                 </div>
             </div>
+        </div>
+
+        <div className="pt-5 px-5 flex justify-center items-center">
+            <Embed url="https://x.com/Nisha_297/status/1891904137140310333"/>
         </div>
     </div>
 }
