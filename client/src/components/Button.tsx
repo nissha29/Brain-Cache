@@ -20,7 +20,7 @@ const sizeStyles = {
     lg: "px-4 py-1 text-lg",
 }
 
-const defaultStyles = "rounded-md flex gap-1 justify-center items-center"
+const defaultStyles = "rounded-md flex gap-2 justify-center items-center"
 
 export const Button = (props: ButtonProps) => {
     return <>
