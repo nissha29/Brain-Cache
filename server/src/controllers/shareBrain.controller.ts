@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import generateUniqueId from '../utils/generateUniqueId.util';
 import CustomRequest from '../types/custom';
 import User from '../models/user.model';
@@ -6,6 +6,14 @@ import Link from '../models/shareLink.model';
 
 export default async function shareBrain(req: CustomRequest, res: Response) {
     try{
+        const { share } = req.body;
+
+        if(!share){
+            return res.status(403).json({
+                message: `Brain Sharing is disabled`
+            })
+        }
+
         const userId = req.userId;
         const user = await User.findById(userId);
 

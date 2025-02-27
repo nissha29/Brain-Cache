@@ -3,7 +3,6 @@ export const EmbedType = {
     facebook: "FacebookEmbed",
     linkedin: "LinkedInEmbed",
     pinterest: "PinterestEmbed",
-    tiktok: "TikTokEmbed",
     youtube: "YouTubeEmbed",
     x: "XEmbed",
 }

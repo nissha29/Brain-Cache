@@ -10,12 +10,12 @@ export function CreateContentModal() {
         return null;
     }
     
-    return <div>
+    return <div onClick={() => setIsCreateContentModelOpen(false)}>
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-            <div className="p-5 bg-white rounded-md flex flex-col justify-center">
+            <div className="p-5 bg-white rounded-md flex flex-col justify-center" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between h-8">
                 <div className="text-2xl font-semibold pb-5 text-gray-700">Add Content</div>
-                    <div className="text-gray-500 hover:text-gray-800 transition-colors p-1 rounded-full hover:bg-gray-100" onClick={()=>setIsCreateContentModelOpen(false)}>
+                    <div className="text-gray-500 hover:text-gray-800 hover:cursor-pointer transition-colors p-1 rounded-full hover:bg-gray-100" onClick={()=>setIsCreateContentModelOpen(false)}>
                         <Cross />
                     </div>
                 </div>

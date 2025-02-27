@@ -26,12 +26,12 @@ export function ShareBrainModel(){
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 shadow-2xl max-w-md w-full transition-transform duration-300 transform">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50" onClick={()=>setIsShareBrainModelOpen(false)}>
+      <div className="bg-white rounded-lg p-6 shadow-2xl max-w-md w-full transition-transform duration-300 transform" onClick={(e)=>e.stopPropagation()}>
         <div className="flex justify-between items-center mb-4">
           <h2 className="font-bold text-2xl text-gray-700">Share Your Brain</h2>
           <button 
-            className="text-gray-500 hover:text-gray-800 transition-colors p-1 rounded-full hover:bg-gray-100"
+            className="text-gray-500 hover:text-gray-800 transition-colors p-1 rounded-full hover:bg-gray-100 hover:cursor-pointer"
             onClick={()=>setIsShareBrainModelOpen(false)}
           >
             <Cross />

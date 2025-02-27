@@ -11,7 +11,7 @@ import { SidebarItem } from "./SidebarItem";
 export function Sidebar(){
     return <div className="h-screen ml-11 w-60">
         <div className="flex items-center py-7">
-            <div className="text-blue-600 text-3xl font-bold font-mono tracking-tighter hover:cursor-pointer">Brain Cache</div>
+            <div className="text-blue-600 text-3xl font-bold font-mono tracking-tighter hover:cursor-pointer"><span className="text-gray-700">Brain</span>Cache</div>
         </div>
         <div className="text-gray-700 flex flex-col gap-7 pt-3">
             <SidebarItem icon={<Linkedin />} text={"Linkedin"} />
