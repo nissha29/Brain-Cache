@@ -23,6 +23,10 @@ export default function LandingPage(){
             scrollToFeatures={()=>scrollToSection(featuresRef)}
             scrollToHowItWorks={()=>scrollToSection(howItWorksRef)}
             scrollToAbout={()=>scrollToSection(aboutRef)}
+            featuresRef={featuresRef}
+            howItWorksRef={howItWorksRef}
+            aboutRef={aboutRef}
+            scrollToSection={scrollToSection}
         />
         <HeroSection />
         <FeaturesSection ref={featuresRef}/>
@@ -30,6 +34,5 @@ export default function LandingPage(){
         <AboutSection ref={aboutRef}/>
         <CtaSection />
         <Footer />
-        {/* <div  className="w-full h-[200rem]"></div> */}
     </div>
 }

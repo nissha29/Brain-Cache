@@ -4,10 +4,17 @@ import { Button } from "./Button";
 import { Input } from "./Input";
 import { SignupModelStatus } from "../store/atoms/SignupModelStatus";
 import { SigninModelStatus } from "../store/atoms/SigninModelStatus";
+import { useState } from "react";
+import { AuthformDataProps } from "../types/FormData";
 
 export function Signup() {
     const [isSignupModelOpen, setIsSignupModelOpen] = useRecoilState(SignupModelStatus);
     const setIsSigninModelOpen = useSetRecoilState(SigninModelStatus);
+
+    let [formData, setFormData] =  useState<AuthformDataProps>({
+        username: "",
+        password: "",
+    })
 
     if(!isSignupModelOpen){
         return null;
@@ -16,6 +23,22 @@ export function Signup() {
     const onClickHandler = ()=>{
         setIsSignupModelOpen(false)
         setIsSigninModelOpen(true)
+    }
+
+    const handleChange = (name: string, value: string) => {
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }))
+        console.log(`formData - ${formData}`)
+    }
+
+    const handleSubmit = () => {
+        try{
+
+        }catch(err){
+            console.log(`Error on client side while signing in, ${err}`)
+        }
     }
 
     return <div onClick={()=>setIsSignupModelOpen(false)}>
@@ -27,9 +50,9 @@ export function Signup() {
                         <Cross />
                     </div>
                 </div>
-                <form action="" className="flex flex-col gap-4 mt-8">
-                    <Input text="Username" type="text" placeholder="Enter Username"/>
-                    <Input text="Password" type="password" placeholder="•••••••••••••••"/>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-8">
+                    <Input text="Username" type="text" placeholder="Enter Username" name="username" formData={formData} onChange={handleChange}/>
+                    <Input text="Password" type="password" placeholder="•••••••••••••••" name="password" formData={formData}  onChange={handleChange}/>
                     <Button variant="primary" text="Sign up" type="submit" size="lg"/>
                 </form>
                 <div className="flex justify-center items-center mt-5 text-gray-700">

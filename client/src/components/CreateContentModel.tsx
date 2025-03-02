@@ -3,11 +3,27 @@ import { Cross } from "../icons/Cross";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import { CreateContentModelStatus } from "../store/atoms/CreateContentModelStatus";
+import { useState } from "react";
+import { contentFormDataProps } from "../types/FormData";
 
 export function CreateContentModal() {
     const [isCreateContentModelOpen, setIsCreateContentModelOpen] = useRecoilState(CreateContentModelStatus);
+    const [formData, setFormData] = useState<contentFormDataProps>({
+        link: "",
+        type: "",
+        title: "",
+        description: ""
+    })
+
     if(!isCreateContentModelOpen){
         return null;
+    }
+
+    const handleChange = (name: string, value: string) => {
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }))
     }
     
     return <div onClick={() => setIsCreateContentModelOpen(false)}>
@@ -20,10 +36,10 @@ export function CreateContentModal() {
                     </div>
                 </div>
                 <form action="" className="flex flex-col gap-4 mt-8">
-                    <Input text="Title" type="text" placeholder="Enter Title"/>
-                    <Input text="Type" type="dropdown" placeholder="Enter Type of Content" dropdownOptions={["Document / Links", "X", "Linkedin", "Youtube", "Pinterest", "Instagram", "Facebook"]}/>
-                    <Input text="Link" type="text" placeholder="Enter Link"/>
-                    <Input text="Description" type="text" placeholder="Enter Description"/>
+                    <Input text="Title" type="text" placeholder="Enter Title" name="title" formData={formData} onChange={handleChange}/>
+                    <Input text="Type" type="dropdown" placeholder="Enter Type of Content" dropdownOptions={["Document / Links", "X", "Linkedin", "Youtube", "Pinterest", "Instagram", "Facebook"]} name="type" formData={formData} onChange={handleChange}/>
+                    <Input text="Link" type="text" placeholder="Enter Link" name="link" formData={formData} onChange={handleChange}/>
+                    <Input text="Description" type="text" placeholder="Enter Description" name="description" formData={formData} onChange={handleChange}/>
                     <Button variant="primary" text="Add Content" type="submit" size="lg"/>
                 </form>
             </div>

@@ -10,9 +10,9 @@ interface AboutSectionProps {
 export const AboutSection = forwardRef<HTMLDivElement, AboutSectionProps>(
     function AboutSection(_, ref) {
         return (
-            <section ref={ref} className="py-20 bg-blue-200/40">
+            <section ref={ref} className="py-20 bg-blue-200/20">
                 <div className="max-w-6xl mx-auto px-4">
-                    {/* Section header */}
+                
                     <div className="mb-16 text-center">
                         <div className="inline-flex items-center justify-center p-2 bg-blue-200 rounded-lg mb-4">
                             <Brain />
@@ -23,9 +23,8 @@ export const AboutSection = forwardRef<HTMLDivElement, AboutSectionProps>(
                         </p>
                     </div>
     
-                    {/* Main content grid */}
-                    <div className="grid md:grid-cols-2 gap-12 items-center">
-                        <div className="space-y-6">
+                    <div className="flex flex-col lg:flex-row gap-12 items-center">
+                        <div className="space-y-6 lg:max-w-md">
                             <h3 className="text-3xl font-bold text-blue-600">Our Vision</h3>
                             <p className="text-gray-700/80 leading-relaxed text-lg">
                                 Brain Cache emerged from a fundamental challenge: extracting meaningful insights from the digital noise. We created a solution that allows you to capture and retrieve valuable content precisely when you need it.
@@ -34,8 +33,7 @@ export const AboutSection = forwardRef<HTMLDivElement, AboutSectionProps>(
                                 Brain Cache, crafted by a solo innovator with firsthand experience of information overload, provides a powerful system that transforms how you capture, organize, and instantly retrieve your most valuable digital knowledge.
                             </p>
                         </div>
-    
-                        {/* Right side: Core values */}
+
                         <div className="bg-white rounded-xl p-8 shadow-lg">
                             <h3 className="text-2xl font-bold text-gray-800 mb-6">Our Core Values</h3>
     

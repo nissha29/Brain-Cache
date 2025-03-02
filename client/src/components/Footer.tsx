@@ -29,10 +29,10 @@ function Footer() {
     ];
 
     return (
-        <footer className="bg-primary-bg text-white relative bg-blue-200/40">
+        <footer className="bg-primary-bg text-white relative bg-blue-200/50">
             <div className="container mx-auto px-4 py-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-between">
-                    {/* About Section */}
+                
                     <div className="space-y-4">
                         <h3 className="text-xl text-gray-700 font-medium">About <span className='text-gray-700 font-semibold'>Brain</span><span className='text-blue-600 font-semibold'>Cache</span></h3>
                         <p className="text-gray-700">
@@ -40,10 +40,9 @@ function Footer() {
                         </p>
                     </div>
 
-                    {/* Social Links */}
                     <div className="space-y-4">
                         <h3 className="text-xl text-gray-700 font-semibold">Connect With Us -</h3>
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 items-center">
                             {socialLinks.map((link, index) => (
                                 <a
                                     key={index}
@@ -60,7 +59,6 @@ function Footer() {
                     </div>
                 </div>
 
-                {/* Bottom Section */}
                 <div className="border-t border-gray-700/40 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center">
                     <p className="text-sm text-gray-700">
                         © {new Date().getFullYear()} BrainCache. All rights reserved.
