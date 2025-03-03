@@ -6,21 +6,26 @@ import { SignupModelStatus } from "../store/atoms/SignupModelStatus";
 import { SigninModelStatus } from "../store/atoms/SigninModelStatus";
 import { useState } from "react";
 import { AuthformDataProps } from "../types/FormData";
+import axios from "axios";
+import { URL } from "../utils/contants";
+import { Alert } from "../icons/Alert";
 
 export function Signup() {
     const [isSignupModelOpen, setIsSignupModelOpen] = useRecoilState(SignupModelStatus);
     const setIsSigninModelOpen = useSetRecoilState(SigninModelStatus);
 
-    let [formData, setFormData] =  useState<AuthformDataProps>({
+    let [formData, setFormData] = useState<AuthformDataProps>({
         username: "",
         password: "",
     })
+    const [error, setError] = useState<String>('');
+    const [isLoading, setIsLoading] = useState<Boolean>(false);
 
-    if(!isSignupModelOpen){
+    if (!isSignupModelOpen) {
         return null;
     }
 
-    const onClickHandler = ()=>{
+    const onClickHandler = () => {
         setIsSignupModelOpen(false)
         setIsSigninModelOpen(true)
     }
@@ -30,30 +35,62 @@ export function Signup() {
             ...prev,
             [name]: value
         }))
-        console.log(`formData - ${formData}`)
     }
 
-    const handleSubmit = () => {
-        try{
-
-        }catch(err){
-            console.log(`Error on client side while signing in, ${err}`)
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        setError('');
+        setIsLoading(true);
+        try {
+            const response = await axios.post(
+                `${URL}/signup`,
+                formData
+            )
+            const token = response.data.token;
+            localStorage.setItem('authToken', token);
+            axios.defaults.headers.common['authorization'] = `Bearer ${token}`;
+            setIsSignupModelOpen(false);
+            setIsLoading(false);
+        } catch (err: any) {
+            if (err.response) {
+                if (err.response.status === 400) {
+                    setError('Invalid Credentials');
+                    setIsLoading(false);
+                } else if (err.response.status === 409) {
+                    setError('User already exists');
+                    setIsLoading(false);
+                } else if (err.response.status === 500) {
+                    setError('Server error');
+                    setIsLoading(false);
+                } else {
+                    setError(err.response.data.message || `An error occurred ${err}`);
+                    setIsLoading(false);
+                }
+            }
         }
     }
 
-    return <div onClick={()=>setIsSignupModelOpen(false)}>
+    return <div onClick={() => setIsSignupModelOpen(false)}>
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
             <div className="p-5 bg-white rounded-md flex flex-col justify-center" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between h-8">
-                <div className="text-2xl font-semibold pb-5 text-gray-700">Signup To Brain Cache</div>
-                    <div className="text-gray-500 hover:text-gray-800 hover:cursor-pointer transition-colors p-1 rounded-full hover:bg-gray-100" onClick={()=>setIsSignupModelOpen(false)}>
+                    <div className="text-2xl font-semibold pb-5 text-gray-700">Signup To Brain Cache</div>
+                    <div className="text-gray-500 hover:text-gray-800 hover:cursor-pointer transition-colors p-1 rounded-full hover:bg-gray-100" onClick={() => setIsSignupModelOpen(false)}>
                         <Cross />
                     </div>
                 </div>
+                {error && (
+                    <div
+                        className="flex items-center bg-[#ff9b9b5b] border border-red-700 text-red-800 p-2 rounded-md mt-5 space-x-2 font-playwrite"
+                    >
+                        <Alert />
+                        <p className="text-sm">{error}</p>
+                    </div>
+                )}
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-8">
-                    <Input text="Username" type="text" placeholder="Enter Username" name="username" formData={formData} onChange={handleChange}/>
-                    <Input text="Password" type="password" placeholder="•••••••••••••••" name="password" formData={formData}  onChange={handleChange}/>
-                    <Button variant="primary" text="Sign up" type="submit" size="lg"/>
+                    <Input text="Username" type="text" placeholder="Enter Username" name="username" formData={formData} onChange={handleChange} />
+                    <Input text="Password" type="password" placeholder="•••••••••••••••" name="password" formData={formData} onChange={handleChange} />
+                    <Button variant="primary" text="Sign up" type="submit" size="lg" isLoading={isLoading} />
                 </form>
                 <div className="flex justify-center items-center mt-5 text-gray-700">
                     <a href="#" className="hover:underline hover:text-blue-600" onClick={onClickHandler}>Already have an account?</a>

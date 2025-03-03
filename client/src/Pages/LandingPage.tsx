@@ -6,6 +6,7 @@ import { HowItWorksSection } from "../components/HowItWorks";
 import { AboutSection } from "../components/AboutSection";
 import { CtaSection } from "../components/CtaSection";
 import Footer from "../components/Footer";
+import Background from "../components/Background";
 
 export default function LandingPage(){
     const featuresRef = useRef(null);
@@ -19,6 +20,7 @@ export default function LandingPage(){
     };
 
     return <div>
+        <Background />
         <Navbar 
             scrollToFeatures={()=>scrollToSection(featuresRef)}
             scrollToHowItWorks={()=>scrollToSection(howItWorksRef)}

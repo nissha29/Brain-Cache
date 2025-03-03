@@ -7,9 +7,9 @@ export const FeaturesSection = forwardRef<HTMLDivElement, FeaturesSectionProps>(
     function FeaturesSection(_, ref) {
         return (
             <div ref={ref} className="relative w-full mt-24 bg-blue-200/40 xl:bg-white px-10">
-                <div className="absolute top-0 left-0 w-full h-80 xl:bg-blue-200/40 z-0"></div>
+                <div className="absolute top-0 left-0 w-full h-80 xl:bg-blue-200/40"></div>
 
-                <div className="relative z-10">
+                <div className="relative">
                     <div className="flex justify-center items-center">
                         <div className="text-gray-700 font-bold text-3xl md:text-4xl mt-16 text-center">
                             How Brain Cache Extends Your Memory?
@@ -48,7 +48,7 @@ interface FeaturesProps {
 function FeaturesCard(props: FeaturesProps) {
     return (
         <div className="flex flex-col items-center mb-8">
-            <div className="flex items-center justify-center w-16 h-16 -mb-8 text-xl font-bold text-white bg-blue-600 rounded-full shadow-lg z-10">
+            <div className="flex items-center justify-center w-16 h-16 -mb-8 text-xl font-bold text-white bg-blue-600 rounded-full shadow-lg z-0">
                 {props.num}
             </div>
 

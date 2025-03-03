@@ -1,5 +1,4 @@
 import { DocumentSvg } from "../icons/Document";
-import { Facebook } from "../icons/Facebook";
 import { Instagram } from "../icons/Instagram";
 import { Link } from "../icons/Link";
 import { Linkedin } from "../icons/Linkedin";
@@ -19,7 +18,6 @@ export function Sidebar(){
             <SidebarItem icon={<Twitter />} text={"Tweets"} />
             <SidebarItem icon={<Pinterest />} text={"Pinterest"} />
             <SidebarItem icon={<Instagram />} text={"Instagram"} />
-            <SidebarItem icon={<Facebook />} text={"Facebook"} />
             <SidebarItem icon={<DocumentSvg />} text={"Documents"} />
             <SidebarItem icon={<Link />} text={"Links"} />
         </div>

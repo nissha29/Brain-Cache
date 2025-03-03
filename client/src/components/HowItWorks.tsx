@@ -73,7 +73,7 @@ export const HowItWorksSection = forwardRef<HTMLDivElement, HowItWorksSectionPro
                             <div key={step.number} className="relative">
                                 <div className={`h-2 bg-gradient-to-r ${step.gradient} rounded-full`}></div>
                                 <div className="flex justify-center items-center mt-4">
-                                    <div className={`${step.color} rounded-full h-16 w-16 flex items-center justify-center text-white shadow-lg z-10 
+                                    <div className={`${step.color} rounded-full h-16 w-16 flex items-center justify-center text-white shadow-lg z-0 
                                     hover:scale-110 transition-transform duration-300`}>
                                         {step.icon}
                                     </div>
@@ -131,6 +131,7 @@ export const HowItWorksSection = forwardRef<HTMLDivElement, HowItWorksSectionPro
                         size='lg' 
                         text='Get Started Now' 
                         onClick={()=>setIsSignupModelOpen(true)}
+                        isLoading={false}
                     />
                 </div>
             </div>

@@ -4,7 +4,6 @@ const contentType = ['image', 'video', 'article', 'audio'];
 const contentSchema = new Schema({
     link: {
         type: String,
-        required: true
     },
     type: {
         type: contentType,
@@ -21,6 +20,10 @@ const contentSchema = new Schema({
     userId: { 
         type: Types.ObjectId,
         ref: 'User',
+        required: true
+    },
+    createdAt: {
+        type: String,
         required: true
     }
 })

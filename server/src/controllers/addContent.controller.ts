@@ -14,7 +14,8 @@ export default async function addContent(req: CustomRequest, res: Response) {
             });
         }
 
-        const { link, type, title, description } = data;
+        const { type, title, description } = data;
+        const link = req.body?.link;
         const userId = req.userId && typeof req.userId === 'string' ? new Types.ObjectId(req.userId) : null;
 
         if(!userId){
@@ -23,12 +24,16 @@ export default async function addContent(req: CustomRequest, res: Response) {
                 message: "Invalid user id"
             });
         }
+
+        const currDate = new Date();
+        const createdAt = `${currDate.toLocaleDateString('en-US', { weekday: 'long' })}, ${currDate.toLocaleDateString()}`;
         
         const content = new Content({
             link,
             type,
             title,
             description,
+            createdAt,
             userId
         })
 
