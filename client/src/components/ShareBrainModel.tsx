@@ -26,7 +26,7 @@ export function ShareBrainModel(){
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50" onClick={()=>setIsShareBrainModelOpen(false)}>
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 px-4" onClick={()=>setIsShareBrainModelOpen(false)}>
       <div className="bg-white rounded-lg p-6 shadow-2xl max-w-md w-full transition-transform duration-300 transform" onClick={(e)=>e.stopPropagation()}>
         <div className="flex justify-between items-center mb-4">
           <h2 className="font-bold text-2xl text-gray-700">Share Your Brain</h2>

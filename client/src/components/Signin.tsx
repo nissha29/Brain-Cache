@@ -26,6 +26,7 @@ export function Signin() {
     }
 
     const handleChange = (name: string, value: string) => {
+        setError('')
         setFormData(prev => ({
             ...prev,
             [name]: value
@@ -49,6 +50,7 @@ export function Signin() {
             const token = response.data.token;
             localStorage.setItem('authToken', token);
             axios.defaults.headers.common['authorization'] = `Bearer ${token}`;
+            console.log(axios.defaults.headers.common['authorization']);
             setIsSigninModelOpen(false);
             setIsLoading(false);
         } catch (err: any) {
@@ -74,7 +76,7 @@ export function Signin() {
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
             <div className="p-5 bg-white rounded-md flex flex-col justify-center" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-between h-8">
-                    <div className="text-2xl font-semibold pb-5 text-gray-700">Signin To Brain Cache</div>
+                    <div className="text-xl sm:text-2xl font-semibold pb-5 text-gray-700">Signin To Brain Cache</div>
                     <div className="text-gray-500 hover:text-gray-800 hover:cursor-pointer transition-colors p-1 rounded-full hover:bg-gray-100" onClick={() => setIsSigninModelOpen(false)}>
                         <Cross />
                     </div>
@@ -88,8 +90,8 @@ export function Signin() {
                     </div>
                 )}
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-8">
-                    <Input text="Username" type="text" placeholder="Enter Username" name="username" formData={formData} onChange={handleChange} />
-                    <Input text="Password" type="password" placeholder="•••••••••••••••" name="password" formData={formData} onChange={handleChange} />
+                    <Input text="Username" type="text" placeholder="Enter Username" name="username" formData={formData} onChange={handleChange} required={true}/>
+                    <Input text="Password" type="password" placeholder="•••••••••••••••" name="password" formData={formData} onChange={handleChange} required={true}/>
                     <Button variant="primary" text="Sign in" type="submit" size="lg" isLoading={isLoading} />
                 </form>
                 <div className="flex justify-center items-center mt-5 text-gray-700">

@@ -35,7 +35,7 @@ export const Button = (props: ButtonProps) => {
                 <Loader />
               </div>
               :
-              <div>
+              <div className={`${defaultStyles}`}>
                 {props.startIcon} {props.text}
               </div>
             }

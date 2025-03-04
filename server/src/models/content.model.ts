@@ -1,6 +1,6 @@
 import { Schema, Types, model } from "mongoose";
 
-const contentType = ['image', 'video', 'article', 'audio'];
+const contentType = ["Document", "Links", "X", "Linkedin", "Youtube", "Pinterest", "Instagram", "Facebook"];
 const contentSchema = new Schema({
     link: {
         type: String,

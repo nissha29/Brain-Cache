@@ -10,7 +10,7 @@ export default async function addContent(req: CustomRequest, res: Response) {
         if(error){
             return res.status(400).json({
                 success: false,
-                message: error.message
+                message: `Invalid content type, ${error.message}`
             });
         }
 

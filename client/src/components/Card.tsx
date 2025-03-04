@@ -5,7 +5,7 @@ import { Trash } from "../icons/Trash"
 
 
 export function Card(){
-    return <div className="border border-gray-300 shadow-sm bg-white h-64 w-80 rounded-xl">
+    return <div className="border border-gray-300 shadow-sm bg-white h-64 w-96 lg:w-96 xl:w-80 rounded-xl">
         <div className="flex justify-between px-3 py-2 bg-blue-50 rounded-t-xl">
             <div className="flex gap-2 items-center text-gray-700">
                 <div className="text-blue-600">
