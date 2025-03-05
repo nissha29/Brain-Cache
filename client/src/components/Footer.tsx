@@ -7,17 +7,17 @@ import { Heart } from '../icons/Heart';
 function Footer() {
     const socialLinks = [
         {
-            icon: <Github />,
+            icon: <Github/>,
             href: "https://github.com/nissha29/Melodia",
             label: "Github"
         },
         {
-            icon: <Linkedin />,
+            icon: <Linkedin color="text-blue-600"/>,
             href: "https://www.linkedin.com/in/nisha-kashyap-5972a9273/",
             label: "LinkedIn"
         },
         {
-            icon: <Twitter />,
+            icon: <Twitter color='text-sky-500'/>,
             href: "https://x.com/Nisha_297",
             label: "Twitter"
         },

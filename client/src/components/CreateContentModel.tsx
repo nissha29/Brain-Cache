@@ -8,6 +8,7 @@ import { contentFormDataProps } from "../types/FormData";
 import axios from "axios";
 import { Alert } from "../icons/Alert";
 import { URL } from '../utils/contants.ts'
+import { useFetchNotes } from "../hooks/useFetchNotes.tsx";
 
 export function CreateContentModal() {
     const [isCreateContentModelOpen, setIsCreateContentModelOpen] = useRecoilState(CreateContentModelStatus);
@@ -19,6 +20,7 @@ export function CreateContentModal() {
     })
     const [error, setError] = useState<String>('');
     const [isLoading, setIsLoading] = useState<Boolean>(false);
+    const { fetchNotes } = useFetchNotes();
 
     if (!isCreateContentModelOpen) {
         return null;
@@ -46,6 +48,7 @@ export function CreateContentModal() {
                     }
                 }
             )
+            fetchNotes();
             setIsCreateContentModelOpen(false);
             setIsLoading(false);
         } catch (err: any) {

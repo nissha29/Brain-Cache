@@ -38,7 +38,6 @@ export function Input(props: InputProps) {
                         name={props.name} 
                         value={props.formData[props.name] || ''} 
                         required={props.required}
-                        defaultValue={"document"}
                     >
                         <option value="" disabled>Select an option</option>
                         {props.dropdownOptions.map((option, index) => (

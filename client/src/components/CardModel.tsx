@@ -2,8 +2,11 @@ import { Calendar } from "../icons/Calendar";
 import { ExternalLink } from "../icons/ExternalLink";
 import { Journal } from "../icons/Journal";
 import { Cross } from '../icons/Cross';
+import { useRecoilState } from "recoil";
+import { CardModelStatus } from "../store/atoms/CardModelStatus";
 
 export function CardModal() {
+  const [isCardModelOpen, setIsCardModelOpen] = useRecoilState(CardModelStatus);
   const projectData = {
     title: "Project Ideas",
     date: "Monday, 3/3/2025",
@@ -12,6 +15,10 @@ export function CardModal() {
     link: "https://react.dev",
     linkText: "Related Link"
   };
+
+  if(! isCardModelOpen){
+    return null;
+  }
   
   return (
     <>

@@ -21,7 +21,7 @@ export function Navbar(props: scrollProps) {
     const setIsSigninModelOpen = useSetRecoilState(SigninModelStatus);
     const setIsNavbarItemsOpen = useSetRecoilState(NavbarItemsStatus);
 
-    return <div className="fixed top-0 right-0 left-0 z-10">
+    return <div className="fixed top-0 right-0 left-0 z-20">
         <div className="flex justify-between items-center px-3 sm:px-10 py-5 bg-white">
             <div className="text-blue-600 text-3xl font-bold font-mono tracking-tighter hover:cursor-pointer mt-1"><span className="text-gray-700">Brain</span>Cache</div>
             <div className="lg:flex gap-10 items-center text-gray-700 hidden">
