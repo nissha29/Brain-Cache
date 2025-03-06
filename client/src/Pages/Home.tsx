@@ -18,36 +18,49 @@ import { BottomBar } from "../components/BottomBar";
 import { NotesStatus } from "../store/atoms/NotesStatus"
 import { useEffect } from "react";
 import { useFetchNotes } from "../hooks/useFetchNotes";
+import { NoteProps } from "../types/NoteProps";
+import { CardModel } from "../components/CardModel";
+import { CurrentCardModelDisplay } from "../store/atoms/CurrentCardModelDisplay";
+import { CurrType } from "../store/atoms/currType";
+import { NoNotes } from "../components/NoNotes";
 
-
-type contentType = "Document" | "Links" | "X" | "Linkedin" | "Youtube" | "Pinterest" | "Instagram" | "Facebook";
-
-interface User {
-    _id: string;
-    username: string;
-}
-
-interface NoteProps {
-    _id: string,
-    link: string,
-    type: contentType
-    title: string,
-    description: string,
-    userId: User,
-    createdAt: string,
-}
 
 export function Home() {
     const setIsCreateContentModelOpen = useSetRecoilState(CreateContentModelStatus);
     const setIsShareBrainModelOpen = useSetRecoilState(ShareBrainModelStatus);
     const [IsAccountModelOpen, setIsAccountModelOpen] = useRecoilState(AccountModelStatus);
     const setIsHomeNavbarModelOpen = useSetRecoilState(HomeNavbarItemsStatus);
+    const currentCardModel = useRecoilValue(CurrentCardModelDisplay);
+    const currentType = useRecoilValue(CurrType);
     const notes = useRecoilValue(NotesStatus);
     const { fetchNotes } = useFetchNotes();
 
     useEffect(() => {
         fetchNotes();
     }, [])
+
+    const filterNotes = (activeType: string, notes: Array<NoteProps>) => {
+        switch (activeType) {
+            case 'linkedin':
+                return notes.filter(note => note.type[0] === 'Linkedin');
+            case 'youtube':
+                return notes.filter(note => note.type[0] === 'Youtube');
+            case 'twitter':
+                return notes.filter(note => note.type[0] === 'X');
+            case 'pinterest':
+                return notes.filter(note => note.type[0] === 'Pinterest');
+            case 'instagram':
+                return notes.filter(note => note.type[0] === 'Instagram');
+            case 'document':
+                return notes.filter(note => note.type[0] === 'Document');
+            case 'link':
+                return notes.filter(note => note.type[0] === 'Links');
+            default:
+                return notes;
+        }
+    }
+
+    const filteredNotes = filterNotes(currentType, notes);
 
     return <div className="flex overflow-y-hidden w-screen h-screen"
     >
@@ -74,15 +87,24 @@ export function Home() {
                 <div className="flex justify-center items-center text-gray-700 font-bold text-2xl">All Notes</div>
                 <div className="hover:cursor-pointer"><Hamburger /></div>
             </div>
-            <div className="flex flex-wrap gap-8 mt-10 lg:mb-10 justify-evenly items-center mx-14 mb-28 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-300 scrollbar-none sm:scrollbar-thin">
-                {notes?.map((note: NoteProps) => (
-                    <Card key={note._id} id={note._id} link={note.link} type={note.type} title={note.title} description={note.description} userId={note.userId} createdAt={note.createdAt} />
-                ))}
+            {filteredNotes.length === 0 ?
+            <div className="flex justify-center items-center mt-40">
+                <NoNotes />
             </div>
+            :
+            <div className="flex flex-wrap gap-8 mt-10 lg:mb-10 justify-center lg:justify-start items-center mx-14 mb-28 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-300 scrollbar-none sm:scrollbar-thin">
+            {filteredNotes?.map((note: NoteProps) => (
+                <>
+                    <Card key={note._id} _id={note._id} link={note.link} type={note.type} title={note.title} description={note.description} userId={note.userId} createdAt={note.createdAt} />
+                </>
+            ))}
+        </div>
+            }
             <BottomBar />
         </div>
         <CreateContentModal />
         <ShareBrainModel />
         <HomeNavbarItems />
+        {currentCardModel && <CardModel />}
     </div>
 }

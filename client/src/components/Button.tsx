@@ -12,8 +12,8 @@ interface ButtonProps {
 }
 
 const variantStyles = {
-    primary: "bg-blue-600 text-white hover:bg-blue-800",
-    secondary: "bg-blue-300 text-blue-600 hover:bg-blue-200"
+    primary: "bg-blue-600 text-white hover:bg-blue-900/95",
+    secondary: "bg-blue-300 text-blue-600 hover:bg-blue-200/80"
 }
 
 const sizeStyles = {
