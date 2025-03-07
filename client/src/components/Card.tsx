@@ -65,7 +65,7 @@ export function Card(props: NoteProps) {
     }
 
     return <>
-        <div className="border border-gray-300 bg-white h-72 w-96 xl:w-80 rounded-xl">
+        <div className="border border-gray-300 bg-white h-[18.2rem] w-96 xl:w-80 rounded-xl">
             <div className="flex justify-between px-3 py-2 bg-blue-50 rounded-t-xl">
                 <div className="flex gap-2 items-center text-gray-700">
                     <div className="text-blue-600">
@@ -85,7 +85,7 @@ export function Card(props: NoteProps) {
                     <div className="text-sm">{props.createdAt}</div>
                 </div>
             </div>
-            <div className={`px-3 py-2 mb-2 text-gray-700  ${props.link ? 'h-24' : 'h-[9.5rem]'} scrollbar-none"`}>{truncateDescription(props.description)} {props.description.length > 80 && <span className="text-blue-600 hover:cursor-pointer" onClick={()=>handleCardModel(props._id)}>read more</span>}</div>
+            <div className={`px-2 py-2 mb-3 text-gray-700 ${props.link ? 'h-24' : 'h-[9.5rem]'} text-center"`}>{truncateDescription(props.description)} {props.description.length > 80 && <span className="text-blue-600 hover:cursor-pointer" onClick={()=>handleCardModel(props._id)}>read more</span>}</div>
             {props.link && <div className="bg-gray-100/50 rounded-lg text-gray-700 mx-3 py-3">
                 <div className="flex gap-2 items-center text-sm px-3 pt-1">
                     <ExternalLink />

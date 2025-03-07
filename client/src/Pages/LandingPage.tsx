@@ -34,7 +34,7 @@ export default function LandingPage(){
         <FeaturesSection ref={featuresRef}/>
         <HowItWorksSection ref={howItWorksRef}/>
         <AboutSection ref={aboutRef}/>
-        <CtaSection />
-        <Footer />
+        <CtaSection/>
+        <Footer/>
     </div>
 }

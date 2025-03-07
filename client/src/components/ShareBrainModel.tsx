@@ -1,25 +1,56 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Cross } from '../icons/Cross';
 import { Link } from '../icons/Link';
 import { Button } from './Button';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { ShareBrainModelStatus } from '../store/atoms/ShareBrainModelStatus';
+import { sharingStatus } from '../store/atoms/sharingStatus';
+import { URL } from '../utils/contants'
+import axios from 'axios';
+import { NotesStatus } from '../store/atoms/NotesStatus';
 
 export function ShareBrainModel(){
   const [isCopied, setIsCopied] = useState(false);
-  const [isSharing, setIsSharing] = useState(true);
+  const [isSharingEnabled, setIsSharingEnabled] = useRecoilState(sharingStatus);
   const [isShareBrainModelOpen, setIsShareBrainModelOpen] = useRecoilState(ShareBrainModelStatus);
-  
-  const shareLink = "https://heroicons.com/mini";
+  const [shareLink, setShareLink] = useState<string>('');
+  const setNotes = useSetRecoilState(NotesStatus);
   
   const handleCopyLink = () => {
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
   };
-  
-  const toggleSharing = () => {
-    setIsSharing(!isSharing);
-  };
+
+  const fetchShareLink = async() =>  {
+    try{
+      const response = await axios.post(
+        `${URL}/share/brain`,
+        {share: isSharingEnabled},
+        {
+          headers: {
+            authorization: `${localStorage.getItem('authToken')}`
+          }
+        }
+      )
+      setShareLink(`${URL}/brain/${response.data.link.hash}`);
+      
+      const response2 = await axios.get(
+        `${URL}/brain/${response.data.link.hash}`,
+        {
+          headers: {
+            authorization: `${localStorage.getItem('authToken')}`
+          }
+        }
+      )
+      setNotes(response2.data.brain);
+    }catch(err){
+      console.log(`Error fetching share link, ${err}`);
+    }
+  }
+
+  useEffect(()=>{
+    if(isSharingEnabled) fetchShareLink();
+  },[isSharingEnabled])
   
   if(!isShareBrainModelOpen){
     return null;
@@ -41,21 +72,24 @@ export function ShareBrainModel(){
         <div className="border-b border-gray-200 mb-4 pb-2"></div>
         
         <p className="text-gray-600 mb-4">
-          {isSharing 
+          {isSharingEnabled 
             ? "Your brain is currently shared. Others can access it with the link below."
             : "Enable sharing to generate a link that allows others to access your brain."}
         </p>
         
         <div className="flex gap-3 mb-6">
           <Button 
-            variant={isSharing ? "primary" : "secondary"} 
-            text={isSharing ? "Disable Sharing" : "Enable Sharing"} 
+            variant={isSharingEnabled ? "primary" : "secondary"} 
+            text={isSharingEnabled ? "Disable Sharing" : "Enable Sharing"} 
             size="md"
-            onClick={toggleSharing}
+            onClick={()=>{
+              setIsSharingEnabled((prev) => !prev);
+              fetchShareLink();
+            }}
           />
         </div>
         
-        {isSharing && (
+        {isSharingEnabled && (
           <>
             <div className="bg-gray-50 p-4 rounded-lg">
               <div className="flex justify-between items-center mb-2">

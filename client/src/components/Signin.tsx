@@ -49,7 +49,7 @@ export function Signin() {
             )
             const token = response.data.token;
             localStorage.setItem('authToken', token);
-            axios.defaults.headers.common['authorization'] = `Bearer ${token}`;
+            axios.defaults.headers.common['authorization'] = `${token}`;
             console.log(axios.defaults.headers.common['authorization']);
             setIsSigninModelOpen(false);
             setIsLoading(false);

@@ -8,14 +8,14 @@ export default async function shareBrain(req: CustomRequest, res: Response) {
     try{
         const { share } = req.body;
 
-        if(!share){
-            return res.status(403).json({
+        if(! share){
+            return res.status(200).json({
                 message: `Brain Sharing is disabled`
             })
         }
 
         const userId = req.userId;
-        const user = await User.findById(userId);
+        const user = await User.findById({ _id:userId });
 
         if(!user){
             return res.status(404).json({
@@ -24,9 +24,9 @@ export default async function shareBrain(req: CustomRequest, res: Response) {
             })
         }
 
-        const isShareLinkExists = await Link.findOne({userId});
+        const isShareLinkExists = await Link.findOne({ userId });
         if(isShareLinkExists){
-            return res.status(409).json({
+            return res.status(200).json({
                 success: true,
                 message: 'Share link already exists',
                 link: isShareLinkExists

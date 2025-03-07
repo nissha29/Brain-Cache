@@ -21,7 +21,7 @@ export default function auth(req: CustomRequest, res: Response, next: NextFuncti
         req.userId = decoded.id;
         next();
     }catch(err){
-        console.log(err);
+        console.log(`Error while authenticating user - ${err}`);
         return res.status(500).json({
             success: false,
             message: `Error while authenticating user, ${err}`

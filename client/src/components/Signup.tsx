@@ -49,7 +49,7 @@ export function Signup() {
             )
             const token = response.data.token;
             localStorage.setItem('authToken', token);
-            axios.defaults.headers.common['authorization'] = `Bearer ${token}`;
+            axios.defaults.headers.common['authorization'] = `${token}`;
             setIsSignupModelOpen(false);
             setIsLoading(false);
         } catch (err: any) {

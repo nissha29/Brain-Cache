@@ -19,7 +19,7 @@ export function useFetchNotes(){
             setNotes(response.data.content);                           
         }
         catch (err: any) {
-
+            console.log(`Error while fetching notes, ${err}`)
         }
     }
     return { fetchNotes };
