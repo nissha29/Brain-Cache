@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 import { NotesStatus } from "../store/atoms/NotesStatus";
 import { URL } from '../utils/contants'
 
-export function useFetchNotes(){
+export function useNotes(){
     const setNotes = useSetRecoilState(NotesStatus);
 
     async function fetchNotes() {

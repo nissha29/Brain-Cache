@@ -2,54 +2,31 @@ import { useEffect, useState } from 'react';
 import { Cross } from '../icons/Cross';
 import { Link } from '../icons/Link';
 import { Button } from './Button';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { ShareBrainModelStatus } from '../store/atoms/ShareBrainModelStatus';
 import { sharingStatus } from '../store/atoms/sharingStatus';
-import { URL } from '../utils/contants'
-import axios from 'axios';
-import { NotesStatus } from '../store/atoms/NotesStatus';
+import { useShare } from '../hooks/useShare';
+import { shareLink } from '../store/atoms/shareLink';
 
 export function ShareBrainModel(){
   const [isCopied, setIsCopied] = useState(false);
-  const [isSharingEnabled, setIsSharingEnabled] = useRecoilState(sharingStatus);
+  const [isSharingEnabled, setIsSharingEnabled] = useRecoilState<boolean>(sharingStatus);
   const [isShareBrainModelOpen, setIsShareBrainModelOpen] = useRecoilState(ShareBrainModelStatus);
-  const [shareLink, setShareLink] = useState<string>('');
-  const setNotes = useSetRecoilState(NotesStatus);
+  const { fetchShareLink } = useShare();
+  const shareLinkValue = useRecoilValue(shareLink);
   
-  const handleCopyLink = () => {
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
+  const handleCopyLink = async() => {
+    try{
+      await navigator.clipboard.writeText(shareLinkValue);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    }catch(err){
+      console.log(`error while copying text`);
+    }
   };
 
-  const fetchShareLink = async() =>  {
-    try{
-      const response = await axios.post(
-        `${URL}/share/brain`,
-        {share: isSharingEnabled},
-        {
-          headers: {
-            authorization: `${localStorage.getItem('authToken')}`
-          }
-        }
-      )
-      setShareLink(`${URL}/brain/${response.data.link.hash}`);
-      
-      const response2 = await axios.get(
-        `${URL}/brain/${response.data.link.hash}`,
-        {
-          headers: {
-            authorization: `${localStorage.getItem('authToken')}`
-          }
-        }
-      )
-      setNotes(response2.data.brain);
-    }catch(err){
-      console.log(`Error fetching share link, ${err}`);
-    }
-  }
-
   useEffect(()=>{
-    if(isSharingEnabled) fetchShareLink();
+    if(isSharingEnabled) fetchShareLink(isSharingEnabled);
   },[isSharingEnabled])
   
   if(!isShareBrainModelOpen){
@@ -83,8 +60,9 @@ export function ShareBrainModel(){
             text={isSharingEnabled ? "Disable Sharing" : "Enable Sharing"} 
             size="md"
             onClick={()=>{
-              setIsSharingEnabled((prev) => !prev);
-              fetchShareLink();
+              const newSharingValue = !isSharingEnabled;
+              setIsSharingEnabled(newSharingValue);
+              fetchShareLink(newSharingValue);
             }}
           />
         </div>
@@ -107,7 +85,7 @@ export function ShareBrainModel(){
                 <input 
                   className="w-full py-2 px-3 pr-10 border border-gray-300 rounded-md bg-white text-gray-800 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
                   type="text" 
-                  value={shareLink} 
+                  value={shareLinkValue} 
                   readOnly
                 />
               </div>

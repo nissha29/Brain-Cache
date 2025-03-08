@@ -17,7 +17,7 @@ import { HomeNavbarItemsStatus } from "../store/atoms/HomeNavbarItemsStatus";
 import { BottomBar } from "../components/BottomBar";
 import { NotesStatus } from "../store/atoms/NotesStatus"
 import { useEffect } from "react";
-import { useFetchNotes } from "../hooks/useFetchNotes";
+import { useNotes } from "../hooks/useNotes";
 import { NoteProps } from "../types/NoteProps";
 import { CardModel } from "../components/CardModel";
 import { CurrentCardModelDisplay } from "../store/atoms/CurrentCardModelDisplay";
@@ -33,7 +33,7 @@ export function Home() {
     const currentCardModel = useRecoilValue(CurrentCardModelDisplay);
     const currentType = useRecoilValue(CurrType);
     const notes = useRecoilValue(NotesStatus);
-    const { fetchNotes } = useFetchNotes();
+    const { fetchNotes } = useNotes();
 
     useEffect(() => {
         fetchNotes();
@@ -92,7 +92,7 @@ export function Home() {
                 <NoNotes />
             </div>
             :
-            <div className="flex flex-wrap gap-8 mt-10 lg:mb-10 justify-center lg:justify-start items-center mx-14 mb-28 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-300 scrollbar-none sm:scrollbar-thin">
+            <div className="flex flex-wrap 2xl:gap-14 gap-6 mt-10 lg:mb-10 justify-center lg:justify-start items-center mx-14 mb-28 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-300 scrollbar-none sm:scrollbar-thin pt-3 px-2">
             {filteredNotes?.map((note: NoteProps) => (
                 <>
                     <Card key={note._id} _id={note._id} link={note.link} type={note.type} title={note.title} description={note.description} userId={note.userId} createdAt={note.createdAt} />

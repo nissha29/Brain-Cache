@@ -10,6 +10,11 @@ const linkSchema = new Schema({
         type: Types.ObjectId,
         required: true,
         ref: 'User'
+    },
+    share: {
+        type: Boolean,
+        required: true,
+        default: false,
     }
 })
 

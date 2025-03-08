@@ -7,11 +7,11 @@ import { CurrentCardModelDisplay } from "../store/atoms/CurrentCardModelDisplay"
 import { NoteProps } from "../types/NoteProps";
 import { URL } from '../utils/contants'
 import axios from "axios";
-import { useFetchNotes } from "../hooks/useFetchNotes";
+import { useNotes } from "../hooks/useNotes";
 
 export function Card(props: NoteProps) {
     const setCurrentCardModel = useSetRecoilState(CurrentCardModelDisplay);
-    const { fetchNotes } = useFetchNotes();
+    const { fetchNotes } = useNotes();
 
     const truncateDescription = (description: string, maxLength: number = 90) => {
         const trimmedDesc = description.trim();
@@ -65,7 +65,7 @@ export function Card(props: NoteProps) {
     }
 
     return <>
-        <div className="border border-gray-300 bg-white h-[18.2rem] w-96 xl:w-80 rounded-xl">
+        <div className="border border-gray-300 bg-white h-[18.2rem] w-96 xl:w-80 rounded-xl hover:scale-105">
             <div className="flex justify-between px-3 py-2 bg-blue-50 rounded-t-xl">
                 <div className="flex gap-2 items-center text-gray-700">
                     <div className="text-blue-600">

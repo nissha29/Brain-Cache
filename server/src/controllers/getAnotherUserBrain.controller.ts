@@ -15,6 +15,14 @@ export default async function getAnotherUserBrain(req: Request, res: Response) {
             });
         }
 
+        const isSharingEnabled = await Link.findOne({hash: shareLink, share: true});
+        if(! isSharingEnabled){
+            return res.status(403).json({
+                success: false,
+                messge: `Access denied`
+            })
+        }
+
         const userId = isUserBrain.userId;
         const userBrainCache = await Content.find({userId}).populate('userId', 'username');
 
