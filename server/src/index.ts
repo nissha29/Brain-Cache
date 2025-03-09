@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 dotenv.config();
 
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = ['http://localhost:5173', 'https://brain-cache-extends.vercel.app'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) {
