@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useSetRecoilState } from "recoil";
-import { URL } from '../utils/contants'
+import { FROTEND_URL, URL } from '../utils/contants'
 import { shareLink } from "../store/atoms/shareLink";
 
 
@@ -17,7 +17,7 @@ export function useShare(){
               }
             }
           )
-          setShareLink(`http://localhost:5173/brain/${response.data.link.hash}`);
+          setShareLink(`${FROTEND_URL}/share/${response.data.link.hash}`);
         }catch(err){
           console.log(`Error fetching share link, ${err}`);
         }

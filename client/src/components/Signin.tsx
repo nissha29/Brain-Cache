@@ -9,10 +9,12 @@ import { useState } from "react";
 import axios from "axios";
 import { Alert } from "../icons/Alert";
 import { URL } from "../utils/contants";
+import { Auth } from "../routes/auth";
 
 export function Signin() {
     const [isSigninModelOpen, setIsSigninModelOpen] = useRecoilState(SigninModelStatus);
     const setIsSignupModelOpen = useSetRecoilState(SignupModelStatus);
+    const { login } = Auth();
 
     let [formData, setFormData] = useState<AuthformDataProps>({
         username: "",
@@ -48,11 +50,17 @@ export function Signin() {
                 formData
             )
             const token = response.data.token;
-            localStorage.setItem('authToken', token);
-            axios.defaults.headers.common['authorization'] = `${token}`;
-            console.log(axios.defaults.headers.common['authorization']);
+            const user = {
+                id: response.data.user._id,
+                username: response.data.user.username,
+            }
+            login(token,user);
             setIsSigninModelOpen(false);
             setIsLoading(false);
+            setFormData({
+                username: '',
+                password: '',
+            });
         } catch (err: any) {
             if (err.response) {
                 if (err.response.status === 400) {

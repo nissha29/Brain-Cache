@@ -51,6 +51,12 @@ export function CreateContentModal() {
             fetchNotes();
             setIsCreateContentModelOpen(false);
             setIsLoading(false);
+            setFormData({
+                link: "",
+                type: "",
+                title: "",
+                description: "",
+            })
         } catch (err: any) {
             if (err.response) {
                 setError(err.response.data.message || `An error occurred ${err}`);

@@ -7,6 +7,9 @@ import { Card } from '../components/Card';
 import { ErrorComponent } from '../components/ErrorComponent';
 import { Button } from '../components/Button';
 import { LockIcon } from '../icons/LockIcon';
+import { useRecoilValue } from 'recoil';
+import { CurrentCardModelDisplay } from '../store/atoms/CurrentCardModelDisplay';
+import { CardModel } from '../components/CardModel';
 
 export function AnotherUserBrain() {
   const { shareLink } = useParams();
@@ -16,6 +19,7 @@ export function AnotherUserBrain() {
   const [error, setError] = useState<string | null>(null);
   const [username, setUsername] = useState<string>('');
   const [accessible, setAccessible] = useState<boolean>(true);
+  const currentCardModel = useRecoilValue(CurrentCardModelDisplay);
 
   useEffect(() => {
     const fetchBrainData = async () => {
@@ -110,7 +114,7 @@ export function AnotherUserBrain() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 py-6">
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 py-6 overflow-x-hidden">
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
         <div className="relative">
           <div className="flex items-center justify-center mb-12">
@@ -118,7 +122,7 @@ export function AnotherUserBrain() {
               <svg className="w-7 h-7 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
               </svg>
-              <h1 className="text-2xl md:text-3xl font-bold">
+              <h1 className="text-xl sm:text-3xl font-bold">
                 <span className="text-gray-700">Exploring</span>
                 <span className="text-blue-600 ml-2">{username}'s</span>
                 <span className="text-gray-700 ml-2">Brain</span>
@@ -126,8 +130,8 @@ export function AnotherUserBrain() {
             </div>
           </div>
 
-          <div className="sm:hidden">
-            <div className="flex justify-between items-center px-4 py-2">
+          <div className="sm:hidden overflow-x-hidden">
+            <div className="flex justify-between items-center px-5 py-2">
               <h2 className="text-blue-600 font-medium">Thoughts</h2>
               <div className="text-blue-600 text-sm">{brainData.length} items</div>
             </div>
@@ -149,7 +153,7 @@ export function AnotherUserBrain() {
             </div>
           </div>
 
-          {/* Desktop view (full container with header) */}
+          
           <div className="hidden sm:block bg-white border-2 border-blue-600 rounded-3xl overflow-hidden">
             <div className="bg-blue-600 py-2 px-6">
               <div className="flex items-center justify-between">
@@ -160,7 +164,7 @@ export function AnotherUserBrain() {
 
             <div className="h-[40rem] overflow-y-auto scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-blue-100">
               <div className="flex flex-wrap gap-6 p-6 justify-center">
-                {brainData?.map((note) => (
+                {brainData?.map((note: NoteProps) => (
                   <div key={note._id}>
                     <Card
                       _id={note._id}
@@ -170,6 +174,7 @@ export function AnotherUserBrain() {
                       description={note.description}
                       userId={note.userId}
                       createdAt={note.createdAt}
+                      canDelete={false}
                     />
                   </div>
                 ))}
@@ -187,6 +192,7 @@ export function AnotherUserBrain() {
           </div>
         </div>
       </div>
+      {currentCardModel && <CardModel />}
     </div>
   );
 }

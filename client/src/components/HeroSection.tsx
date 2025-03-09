@@ -1,6 +1,6 @@
-import Home from '../assets/home.png' 
+import Home from '../assets/home.png'
 import { Button } from './Button'
-import { SignupModelStatus } from '../store/atoms/SignupModelStatus';  
+import { SignupModelStatus } from '../store/atoms/SignupModelStatus';
 import { useSetRecoilState } from 'recoil';
 import { Signup } from './Signup';
 
@@ -16,15 +16,16 @@ export default function HeroSection() {
                 </div>
                 <div className='flex flex-col items-center justify-center sm:flex-row gap-4 mt-2'>
                     <div>
-                        <Button variant='primary' text='Get Started' size='lg' onClick={()=>setIsSignupModelOpen(true)} isLoading={false}/>
+                        <Button variant='primary' text='Get Started' size='lg' onClick={() => setIsSignupModelOpen(true)} isLoading={false} />
                     </div>
                     <div>
-                        <Button variant='secondary' text='Watch Demo' size='lg' isLoading={false}/>
+                        <Button variant='secondary' text='Watch Demo' size='lg' isLoading={false} />
                     </div>
                 </div>
             </div>
-            <div className='flex justify-center items-center'>
-                <img src={Home} className="w-[95%] xl:w-[85%] h-full border border-gray-200 hover:shadow-blue-400 rounded-md shadow-xl shadow-blue-300" alt="" />
+            <div className='flex justify-center items-center relative'>
+                <div className="absolute inset-0 w-[95%] xl:w-[85%] h-full border-4 border-double border-blue-600 rounded-3xl animate-pulse mx-auto"></div>
+                <img src={Home} className="w-[95%] xl:w-[85%] h-full border-4 border-transparent rounded-3xl shadow-xl shadow-blue-400/55" alt="" />
             </div>
             <Signup />
         </div>

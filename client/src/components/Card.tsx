@@ -13,7 +13,7 @@ export function Card(props: NoteProps) {
     const setCurrentCardModel = useSetRecoilState(CurrentCardModelDisplay);
     const { fetchNotes } = useNotes();
 
-    const truncateDescription = (description: string, maxLength: number = 90) => {
+    const truncateDescription = (description: string, maxLength: number) => {
         const trimmedDesc = description.trim();
 
         if (trimmedDesc.length <= maxLength) {
@@ -65,19 +65,19 @@ export function Card(props: NoteProps) {
     }
 
     return <>
-        <div className="border border-gray-300 bg-white h-[18.2rem] w-96 xl:w-80 rounded-xl hover:scale-105">
+        <div className="border border-gray-300 bg-white h-[18.2rem] w-80 rounded-xl">
             <div className="flex justify-between px-3 py-2 bg-blue-50 rounded-t-xl">
                 <div className="flex gap-2 items-center text-gray-700">
                     <div className="text-blue-600">
                         <Journal />
                     </div>
-                    {props.title}
+                    {truncateDescription(props.title,25)}...
                 </div>
-                <div className="flex gap-2 items-center">
+                {props?.canDelete && <div className="flex gap-2 items-center">
                     <div className="text-gray-500 hover:text-red-500 hover:cursor-pointer hover:bg-pink-100 rounded-full p-2" onClick={()=>handlecardDeletion(props._id)}>
                         <Trash />
                     </div>
-                </div>
+                </div>}
             </div>
             <div>
                 <div className="flex gap-2 px-3 py-2 text-gray-700 items-cente">
@@ -85,7 +85,7 @@ export function Card(props: NoteProps) {
                     <div className="text-sm">{props.createdAt}</div>
                 </div>
             </div>
-            <div className={`px-2 py-2 mb-3 text-gray-700 ${props.link ? 'h-24' : 'h-[9.5rem]'} text-center"`}>{truncateDescription(props.description)} {props.description.length > 80 && <span className="text-blue-600 hover:cursor-pointer" onClick={()=>handleCardModel(props._id)}>read more</span>}</div>
+            <div className={`px-2 py-2 mb-3 text-gray-700 ${props.link ? 'h-24' : 'h-[9.5rem]'} text-center"`}>{truncateDescription(props.description,90)} {props.description.length > 80 && <span className="text-blue-600 hover:cursor-pointer hover:underline" onClick={()=>handleCardModel(props._id)}>read more</span>}</div>
             {props.link && <div className="bg-gray-100/50 rounded-lg text-gray-700 mx-3 py-3">
                 <div className="flex gap-2 items-center text-sm px-3 pt-1">
                     <ExternalLink />

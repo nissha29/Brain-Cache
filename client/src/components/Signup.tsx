@@ -9,10 +9,12 @@ import { AuthformDataProps } from "../types/FormData";
 import axios from "axios";
 import { URL } from "../utils/contants";
 import { Alert } from "../icons/Alert";
+import { Auth } from "../routes/auth";
 
 export function Signup() {
     const [isSignupModelOpen, setIsSignupModelOpen] = useRecoilState(SignupModelStatus);
     const setIsSigninModelOpen = useSetRecoilState(SigninModelStatus);
+    const { login } = Auth();
 
     let [formData, setFormData] = useState<AuthformDataProps>({
         username: "",
@@ -48,10 +50,18 @@ export function Signup() {
                 formData
             )
             const token = response.data.token;
-            localStorage.setItem('authToken', token);
-            axios.defaults.headers.common['authorization'] = `${token}`;
+            console.log(token);
+            const user = {
+                id: response.data.user._id,
+                username: response.data.user.username,
+            }
+            login(token,user);
             setIsSignupModelOpen(false);
             setIsLoading(false);
+            setFormData({
+                username: '',
+                password: '',
+            })
         } catch (err: any) {
             if (err.response) {
                 if (err.response.status === 400) {

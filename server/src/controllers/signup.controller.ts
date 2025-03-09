@@ -37,7 +37,8 @@ export default async function signup(req: Request, res: Response): Promise<Respo
         return res.status(201).json({
             success: true,
             message: "User created successfully",
-            token
+            token: token,
+            user: user,
         });
     }catch(err){
         console.log(err);

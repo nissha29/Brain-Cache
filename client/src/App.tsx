@@ -1,4 +1,4 @@
-import { Routing } from "./utils/Routing"
+import { Routing } from "./routes/Routing"
 
 function App() {
 

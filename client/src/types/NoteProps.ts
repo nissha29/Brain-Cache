@@ -13,4 +13,5 @@ export interface NoteProps {
     description: string,
     userId: User,
     createdAt: string,
+    canDelete?: boolean
 }
