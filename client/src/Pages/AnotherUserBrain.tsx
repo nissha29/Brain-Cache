@@ -66,7 +66,7 @@ export function AnotherUserBrain() {
             <div className="w-4 h-4 bg-blue-500 rounded-full animate-pulse delay-150"></div>
             <div className="w-4 h-4 bg-blue-400 rounded-full animate-pulse delay-300"></div>
           </div>
-          <span className="text-gray-700 text-lg font-medium">Loading {username}'s Brain...</span>
+          <span className="text-gray-700 text-lg font-medium">Loading Brain...</span>
         </div>
       </div>
     );

@@ -14,8 +14,8 @@ export function CardModel() {
   }
   
   return (
-    <>
-        <div className="fixed inset-0 bg-black/10 backdrop-blur-sm flex items-center justify-center z-50 p-3" onClick={()=>setCurrentCardModel(null)}>
+    <div className="fixed inset-0 bg-black/10 backdrop-blur-sm flex items-center justify-center ">
+        <div className="z-50 px-4 py-3" onClick={()=>setCurrentCardModel(null)}>
           <div className="bg-white rounded-xl w-full max-w-3xl max-h-screen overflow-y-auto">
             <div className="flex justify-between px-4 py-3 bg-blue-50 rounded-t-xl">
               <div className="flex gap-2 items-center text-gray-700">
@@ -70,6 +70,6 @@ export function CardModel() {
             </div>
           </div>
         </div>
-    </>
+    </div>
   );
 }
