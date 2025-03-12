@@ -5,6 +5,7 @@ import userRouter from './routers/user.route';
 import contentRouter from './routers/content.router';
 import shareRouter from './routers/share.router';
 import cors from 'cors'
+import { generateEmbedding } from './services/embedding.service';
 
 const app = express();
 app.use(express.json());
@@ -31,6 +32,8 @@ app.use('/api/v1', shareRouter);
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
+
+const embedding = generateEmbedding("I am Nisha and nisha is in love with Pranav");
 
 app.listen(process.env.PORT, async()=> {
     await connectDB();
