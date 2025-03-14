@@ -6,6 +6,7 @@ import { CreateContentModelStatus } from "../store/atoms/CreateContentModelStatu
 import { ShareBrainModelStatus } from "../store/atoms/ShareBrainModelStatus";
 import { Auth } from "../routes/auth";
 import { authState } from "../store/atoms/authState";
+import { useNavigate } from "react-router-dom";
 
 
 export function HomeNavbarItems() {
@@ -14,6 +15,7 @@ export function HomeNavbarItems() {
     const setIsCreateContentModelOpen = useSetRecoilState(CreateContentModelStatus);
     const setIsShareBrainModelOpen = useSetRecoilState(ShareBrainModelStatus);
     const { logout } = Auth();
+    const navigate = useNavigate();
     const auth = useRecoilValue(authState);
 
     if (!isHomeNavbarItemsOpen) {
@@ -34,7 +36,12 @@ export function HomeNavbarItems() {
         setIsShareBrainModelOpen(true);
     }
 
+    const handleQueryBrain = () => {
+        navigate('/search');
+    }
+
     const menuItems = [
+        { id: "queryBrain", label: "Query Your Brain ?", onClick: handleQueryBrain},
         { id: "shareBrain", label: "Share Brain", onClick: handleShareBrainClick },
         { id: "addContent", label: "Add Content", onClick: handleAddContentClick },
         { id: "logout", label: "Logout", onClick: handleLogout },

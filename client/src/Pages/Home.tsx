@@ -2,7 +2,6 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { Sidebar } from "../components/Sidebar";
-import { Account } from "../icons/Account";
 import { Plus } from "../icons/Plus";
 import { Share } from "../icons/Share";
 import { CreateContentModelStatus } from "../store/atoms/CreateContentModelStatus"
@@ -20,9 +19,10 @@ import { useEffect, useState } from "react";
 import { useNotes } from "../hooks/useNotes";
 import { NoteProps } from "../types/NoteProps";
 import { CardModel } from "../components/CardModel";
-import { CurrentCardModelDisplay } from "../store/atoms/CurrentCardModelDisplay";
 import { CurrType } from "../store/atoms/currType";
 import { NoNotes } from "../components/NoNotes";
+import { useNavigate } from "react-router-dom";
+import { authState } from "../store/atoms/authState";
 
 
 export function Home() {
@@ -30,11 +30,12 @@ export function Home() {
     const setIsShareBrainModelOpen = useSetRecoilState(ShareBrainModelStatus);
     const [IsAccountModelOpen, setIsAccountModelOpen] = useRecoilState(AccountModelStatus);
     const setIsHomeNavbarModelOpen = useSetRecoilState(HomeNavbarItemsStatus);
-    const currentCardModel = useRecoilValue(CurrentCardModelDisplay);
     const currentType = useRecoilValue(CurrType);
     const notes = useRecoilValue(NotesStatus);
     const { fetchNotes } = useNotes();
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
+    const auth = useRecoilValue(authState);
 
     useEffect(() => {
         const loadNotes = async () => {
@@ -76,13 +77,16 @@ export function Home() {
             <Sidebar />
         </div>
         <div className="w-screen h-screen flex flex-col">
-            <div className="justify-between px-14 mt-7 hidden lg:flex">
-                <div className="text-gray-700 font-bold text-2xl">My Notes</div>
-                <div className="flex gap-3">
+            <div className="justify-between mt-7 hidden lg:flex px-5">
+                <div className="text-gray-700 font-bold text-2xl items-center mt-[0.3rem]">My Notes</div>
+                <div className="flex gap-3 justify-center items-center">
+                    <div className="text-lg font-thin hover:cursor-pointer text-gray-700 font-mono rounded-md hover:text-black" onClick={() => navigate('/search')}>Query Your Brain?</div>
                     <Button variant="secondary" startIcon={<Share />} text="Share Brain" size="md" onClick={() => setIsShareBrainModelOpen(prev => !prev)} isLoading={false} />
                     <Button variant="primary" startIcon={<Plus />} text="Add Content" size="md" onClick={() => setIsCreateContentModelOpen(prev => !prev)} isLoading={false} />
                     <div className="hover:cursor-pointer" onClick={() => setIsAccountModelOpen(prev => !prev)}>
-                        <Account />
+                        <div className="w-12 h-12 rounded-full bg-blue-200 flex items-center justify-center text-blue-600 font-medium text-2xl">
+                            {auth.user?.username.charAt(0).toUpperCase()}
+                        </div>
                         {IsAccountModelOpen && <div className="fixed right-14 top-20">
                             <AccountModel />
                         </div>}
@@ -111,7 +115,7 @@ export function Home() {
                         <NoNotes />
                     </div>
                     :
-                    <div className="flex flex-wrap 2xl:gap-14 gap-6 mt-10 lg:mb-10 justify-center lg:justify-start items-center sm:mx-14 mb-28 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-300 scrollbar-none sm:scrollbar-thin pt-3 px-2">
+                    <div className="flex flex-wrap 2xl:gap-14 gap-6 mt-10 lg:mb-10 justify-center items-center sm:mx-14 mb-28 overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-blue-300 scrollbar-none sm:scrollbar-thin pt-3 px-2">
                         {filteredNotes?.map((note: NoteProps) => (
 
                             <Card key={note._id} _id={note._id} link={note.link} type={note.type} title={note.title} description={note.description} userId={note.userId} createdAt={note.createdAt} canDelete={true} />
@@ -124,6 +128,6 @@ export function Home() {
         <CreateContentModal />
         <ShareBrainModel />
         <HomeNavbarItems />
-        {currentCardModel && <CardModel />}
+        <CardModel />
     </div>
 }

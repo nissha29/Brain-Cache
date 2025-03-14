@@ -6,6 +6,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { useRecoilValue } from "recoil";
 import { authState } from "../store/atoms/authState";
 import NotFound from "../components/NotFound";
+import { QueryYourBrain } from "../Pages/QueryYourBrain";
 
 export function Routing() {
     const auth = useRecoilValue(authState);
@@ -16,6 +17,7 @@ export function Routing() {
             <Route element={<ProtectedRoute />}>
                 <Route path="/home" element={<Home />}/>
                 <Route path="/share/:shareLink" element={<AnotherUserBrain />}/>
+                <Route path="/search" element={<QueryYourBrain />}/>
             </Route>
             <Route path="*" element={<NotFound />}/>
         </Routes>
