@@ -4,10 +4,18 @@ import { ResponseProps } from "../types/contextProps.type";
 export async function generateResponse(props: ResponseProps) {
     try {
 
-        const contextString = props.context.map(item => {
+        const userContext = props.context.filter((item) => {
+            return item.metadata.userId === props.userId;
+        })
+
+        if (userContext.length === 0) {
+            return "I couldn't find any relevant information in your brain. Please try a different query or add more content.";
+        }
+
+        const contextString = userContext.map(item => {
             return `Document ID: ${item.id}
-      Score: ${item.score}
-      Content: ${JSON.stringify(item.metadata, null, 6)}`;
+                    Score: ${item.score}
+                    Content: ${JSON.stringify(item.metadata, null, 6)}`;
         }).join('\n\n');
 
 

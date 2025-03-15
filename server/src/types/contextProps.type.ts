@@ -16,6 +16,7 @@ interface ContextItem {
 interface ResponseProps {
     query: string;
     context: Array<ContextItem>;
+    userId: string;
 }
 
 export { metadataProps, ContextItem, ResponseProps }; 

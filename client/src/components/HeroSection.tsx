@@ -26,10 +26,10 @@ export default function HeroSection() {
                 </div>
             </div>
             <div className='flex justify-center items-center relative'>
-                <div className="absolute inset-0 w-full md:w-[90%] h-full border-4 border-double border-blue-600 rounded-3xl animate-pulse mx-auto"></div>
+                <div className="absolute inset-0 w-[90%] h-full border-4 border-double border-blue-600 rounded-3xl animate-pulse mx-auto"></div>
                 <img src={Home} className="xl:block hidden w-[90%] h-full border-4 border-transparent rounded-3xl shadow-xl shadow-blue-400/55" alt="" />
                 <img src={Home2} className="md:block xl:hidden hidden w-[90%] h-full border-4 border-transparent rounded-3xl shadow-xl shadow-blue-400/55" alt="" />
-                <img src={Home3} className="block md:hidden w-full h-full border-4 border-transparent rounded-3xl shadow-xl shadow-blue-400/55" alt="" />
+                <img src={Home3} className="block md:hidden w-[90%] h-full border-4 border-transparent rounded-3xl shadow-xl shadow-blue-400/55" alt="" />
             </div>
             <Signup />
         </div>

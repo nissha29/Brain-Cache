@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { KeyboardEvent, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { authState } from '../store/atoms/authState';
 import { ArrowUp } from '../icons/ArrowUp';
@@ -15,8 +15,8 @@ export const QueryYourBrain: React.FC = () => {
   const [IsAccountModelOpen, setIsAccountModelOpen] = useRecoilState(AccountModelStatus);
   const { fetchAiResponse } = useQuery();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if(e) e.preventDefault();
     setIsLoading(true);
     const result = await fetchAiResponse(query);
     setIsLoading(false);
@@ -24,8 +24,15 @@ export const QueryYourBrain: React.FC = () => {
     setQuery('');
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
-    <div className="flex flex-col h-screen text-gray-700">
+    <div className="flex flex-col h-screen text-gray-700 z-0">
 
       <header className="flex items-center justify-between py-4 px-6">
         <div className="flex items-center">
@@ -35,7 +42,7 @@ export const QueryYourBrain: React.FC = () => {
           <div className="w-12 h-12 rounded-full bg-blue-200 flex items-center justify-center text-blue-600 font-medium text-2xl hover:cursor-pointer" onClick={() => setIsAccountModelOpen(prev => !prev)}>
             {auth.user?.username.charAt(0).toUpperCase()}
           </div>
-          {IsAccountModelOpen && <div className="fixed right-14 top-20">
+          {IsAccountModelOpen && <div className="fixed right-14 top-20 z-50">
             <AccountModel />
           </div>}
         </div>
@@ -55,6 +62,7 @@ export const QueryYourBrain: React.FC = () => {
                   placeholder="Query Brain"
                   rows={1}
                   value={query}
+                  onKeyDown={handleKeyDown}
                   onChange={(e) => setQuery(e.target.value)}
                   style={{ minHeight: '60px' }}
                 />

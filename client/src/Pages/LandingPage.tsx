@@ -7,6 +7,7 @@ import { AboutSection } from "../components/AboutSection";
 import { CtaSection } from "../components/CtaSection";
 import Footer from "../components/Footer";
 import Background from "../components/Background";
+import { FadeInOnScroll } from "../components/FadeInOnScroll";
 
 export default function LandingPage(){
     const featuresRef = useRef(null);
@@ -31,10 +32,10 @@ export default function LandingPage(){
             scrollToSection={scrollToSection}
         />
         <HeroSection />
-        <FeaturesSection ref={featuresRef}/>
-        <HowItWorksSection ref={howItWorksRef}/>
-        <AboutSection ref={aboutRef}/>
-        <CtaSection/>
-        <Footer/>
+        <FadeInOnScroll><FeaturesSection ref={featuresRef}/></FadeInOnScroll>
+        <FadeInOnScroll><HowItWorksSection ref={howItWorksRef}/></FadeInOnScroll>
+        <FadeInOnScroll><AboutSection ref={aboutRef}/></FadeInOnScroll>
+        <FadeInOnScroll><CtaSection/></FadeInOnScroll>
+        <FadeInOnScroll><Footer/></FadeInOnScroll>
     </div>
 }

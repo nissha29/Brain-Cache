@@ -2,11 +2,13 @@ import { Request, Response } from "express";
 import { generateEmbedding } from "../services/embedding.service";
 import pineconeIndex from "../config/pinecone.index";
 import { generateResponse } from "../services/response.service";
-import { metadataProps, ContextItem } from "../types/contextProps.type";
+import { ContextItem } from "../types/contextProps.type";
+import CustomRequest from "../types/custom.type";
 
-export default async function queryContent(req: Request, res: Response){
+export default async function queryContent(req: CustomRequest, res: Response){
     try{
         const { query } = req.body;
+        const userId = req.userId;
 
         if(! query){
             return res.status(400).json({
@@ -60,7 +62,7 @@ export default async function queryContent(req: Request, res: Response){
         })
         .filter(item => item !== null);
 
-        const response = await generateResponse({query, context});
+        const response = await generateResponse({query, context, userId});
         return res.status(200).json({
             success: true,
             message: `Request successful`,
