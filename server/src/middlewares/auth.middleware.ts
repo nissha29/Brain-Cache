@@ -1,7 +1,7 @@
 import { Response, NextFunction } from "express";
 import verifyJWT from "../utils/verifyJWT.util";
 import { JwtPayload } from "jsonwebtoken";
-import CustomRequest from "../types/custom";
+import CustomRequest from "../types/custom.type";
 
 export default function auth(req: CustomRequest, res: Response, next: NextFunction) {
     try{

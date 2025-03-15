@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import generateUniqueId from '../utils/generateUniqueId.util';
-import CustomRequest from '../types/custom';
+import CustomRequest from '../types/custom.type';
 import User from '../models/user.model';
 import Link from '../models/shareLink.model';
 

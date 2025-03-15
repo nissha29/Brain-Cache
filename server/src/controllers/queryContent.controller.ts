@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { generateEmbedding } from "../services/embedding.service";
 import pineconeIndex from "../config/pinecone.index";
+import { generateResponse } from "../services/response.service";
+import { metadataProps, ContextItem } from "../types/contextProps.type";
 
 export default async function queryContent(req: Request, res: Response){
     try{
@@ -27,21 +29,42 @@ export default async function queryContent(req: Request, res: Response){
 
         const queryResponse = await pineconeIndex.query({
             vector: embeddingArray as number[],
-            topK: 3,
+            topK: 10,
             includeMetadata: true,
         })
+        
+        const context: ContextItem[] = queryResponse.matches
+        .filter(match => match.id && match.score && match.metadata)
+        .map((match) => {
+          
+          const meta = match.metadata as Record<string, any>;
+          
+          if (!meta.type || !meta.title || !meta.description || 
+              !meta.createdAt || !meta.userId || !meta.link) {
+            console.warn(`Missing metadata fields for match ID: ${match.id}`);
+            return null;
+          }
+          
+          return {
+            id: match.id as string,
+            score: match.score as number,
+            metadata: {
+              type: meta.type,
+              title: meta.title,
+              description: meta.description,
+              createdAt: meta.createdAt,
+              userId: meta.userId,
+              link: meta.link
+            }
+          } as ContextItem;
+        })
+        .filter(item => item !== null);
 
-        const results = queryResponse.matches.map((match)=>({
-            id: match.id,
-            score: match.score,
-            metadata: match.metadata,
-        }))
-
-        console.log(typeof(results));
+        const response = await generateResponse({query, context});
         return res.status(200).json({
             success: true,
             message: `Request successful`,
-            results,
+            response,
         })
     }catch(err){
         return res.status(500).json({

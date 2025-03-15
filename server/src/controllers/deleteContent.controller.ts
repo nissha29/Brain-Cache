@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import CustomRequest from '../types/custom';
+import CustomRequest from '../types/custom.type';
 import Content from '../models/content.model';
 
 export default async function deleteContent(req: CustomRequest, res: Response) {

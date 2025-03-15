@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import Content from '../models/content.model';
-import CustomRequest from '../types/custom';
+import CustomRequest from '../types/custom.type';
 
 export default async function getContent(req: CustomRequest, res: Response): Promise<Response> {
     try{

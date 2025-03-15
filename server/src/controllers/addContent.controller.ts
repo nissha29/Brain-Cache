@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { contentValidationSchema } from '../utils/contentValidation.util';
 import Content from '../models/content.model';
-import CustomRequest from '../types/custom';
+import CustomRequest from '../types/custom.type';
 import { Types } from 'mongoose';
 import { generateEmbedding } from '../services/embedding.service';
 import pineconeIndex from '../config/pinecone.index';
