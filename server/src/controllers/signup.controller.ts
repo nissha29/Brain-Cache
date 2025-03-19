@@ -38,7 +38,7 @@ export default async function signup(req: Request, res: Response): Promise<Respo
             success: true,
             message: "User created successfully",
             token: token,
-            user: user,
+            user: user.username,
         });
     }catch(err){
         console.log(err);

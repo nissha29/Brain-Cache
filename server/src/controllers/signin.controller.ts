@@ -36,7 +36,7 @@ export default async function signin(req: Request, res: Response): Promise<Respo
             success: true,
             message: "User signed in successfully",
             token: token,
-            user: isUser
+            user: isUser.username
         });
     }catch(err){
         console.log(err);

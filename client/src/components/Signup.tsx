@@ -55,7 +55,7 @@ export function Signup() {
                 id: response.data.user._id,
                 username: response.data.user.username,
             }
-            login(token,user);
+            login(token, user);
             setIsSignupModelOpen(false);
             setIsLoading(false);
             setFormData({
@@ -65,7 +65,7 @@ export function Signup() {
         } catch (err: any) {
             if (err.response) {
                 if (err.response.status === 400) {
-                    setError('Invalid Credentials');
+                    setError('Either username or password doesn\'t meet requirements');
                     setIsLoading(false);
                 } else if (err.response.status === 409) {
                     setError('User already exists');
@@ -92,7 +92,7 @@ export function Signup() {
                 </div>
                 {error && (
                     <div
-                        className="flex items-center bg-[#ff9b9b5b] border border-red-700 text-red-800 p-2 rounded-md mt-5 space-x-2 font-playwrite"
+                        className="flex items-center bg-[#ff9b9b5b] border border-red-700 text-red-800 p-2 rounded-md mt-5 space-x-2 font-playwrite max-w-96"
                     >
                         <Alert />
                         <p className="text-sm">{error}</p>
@@ -101,6 +101,10 @@ export function Signup() {
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4 mt-8">
                     <Input text="Username" type="text" placeholder="Enter Username" name="username" formData={formData} onChange={handleChange} required={true} />
                     <Input text="Password" type="password" placeholder="•••••••••••••••" name="password" formData={formData} onChange={handleChange} required={true} />
+                    <p className="text-sm text-left font-playwrite text-gray-700">
+                        Password must have: 6-20 chars,with lowercase, <br />
+                        uppercase, number, and special character
+                    </p>
                     <Button variant="primary" text="Sign up" type="submit" size="lg" isLoading={isLoading} />
                 </form>
                 <div className="flex justify-center items-center mt-5 text-gray-700">
