@@ -5,8 +5,11 @@ import { Button } from './Button'
 import { SignupModelStatus } from '../store/atoms/SignupModelStatus';
 import { useSetRecoilState } from 'recoil';
 import { Signup } from './Signup';
+import VideoComponent from './VideoComponent';
+import { VideoComponentStatus } from '../store/atoms/videoComponentStatus';
 
 export default function HeroSection() {
+    const setIsOpen = useSetRecoilState(VideoComponentStatus);
     const setIsSignupModelOpen = useSetRecoilState(SignupModelStatus);
 
     return (
@@ -21,7 +24,8 @@ export default function HeroSection() {
                         <Button variant='primary' text='Get Started' size='lg' onClick={() => setIsSignupModelOpen(true)} isLoading={false} />
                     </div>
                     <div>
-                        <Button variant='secondary' text='Watch Demo' size='lg' isLoading={false} />
+                        <VideoComponent />
+                        <Button variant='secondary' text='Watch Demo' size='lg' isLoading={false} onClick={() => setIsOpen(true)}/>
                     </div>
                 </div>
             </div>
