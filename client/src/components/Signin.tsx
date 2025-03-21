@@ -52,7 +52,7 @@ export function Signin() {
             const token = response.data.token;
             const user = {
                 id: response.data.user._id,
-                username: response.data.user.username,
+                username: response.data.user,
             }
             login(token,user);
             setIsSigninModelOpen(false);

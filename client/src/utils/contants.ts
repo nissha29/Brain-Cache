@@ -1,2 +1,2 @@
-export const URL = 'https://brain-cache.onrender.com/api/v1'
-export const FROTEND_URL = 'https://brain-cache-extends.vercel.app'
+export const URL = 'http://localhost:3000/api/v1'
+export const FROTEND_URL = 'http://localhost:5173'

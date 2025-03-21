@@ -53,7 +53,7 @@ export function Signup() {
             console.log(token);
             const user = {
                 id: response.data.user._id,
-                username: response.data.user.username,
+                username: response.data.user,
             }
             login(token, user);
             setIsSignupModelOpen(false);
