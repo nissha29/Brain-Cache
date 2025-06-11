@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-const embedding = generateEmbedding("I am Nisha and nisha is in love with Pranav");
+const embedding = generateEmbedding("");
 
 app.listen(process.env.PORT, async()=> {
     await connectDB();
