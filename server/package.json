@@ -26,6 +26,7 @@
     "@google/generative-ai": "^0.24.0",
     "@huggingface/inference": "^3.5.2",
     "@pinecone-database/pinecone": "^5.1.1",
+    "axios": "^1.10.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

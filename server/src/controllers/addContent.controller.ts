@@ -8,6 +8,7 @@ import pineconeIndex from '../config/pinecone.index';
 
 export default async function addContent(req: CustomRequest, res: Response) {
     try {
+        console.log('inside add content controller');
         const { error, data } = contentValidationSchema.safeParse(req.body);
         if (error) {
             return res.status(400).json({
@@ -43,6 +44,7 @@ export default async function addContent(req: CustomRequest, res: Response) {
 
         const textToEmbed = `${title} ${description} ${createdAt}`;
         const embedding = await generateEmbedding(textToEmbed);
+        console.log('hello', embedding);
 
         if (!embedding) {
             throw new Error(`Failed to generate embedding`);

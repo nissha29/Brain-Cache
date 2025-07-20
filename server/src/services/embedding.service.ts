@@ -1,15 +1,28 @@
-import hfClient from "../config/hf.config";
+import axios from 'axios';
 
-export async function generateEmbedding(text: string){
-    try{
+const HF_API_TOKEN = process.env.HF_API_TOKEN;
 
-        const model = 'sentence-transformers/all-mpnet-base-v2';
-        const embedding = await hfClient.featureExtraction({
-            model: model,
-            inputs: text,
-        })
-        return embedding;
-    }catch(err){
-        console.log(`Error while generating embeddings, ${err}`);
-    }
+export async function generateEmbedding(text: string) {
+  try {
+
+    const response = await axios.post(
+      'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-mpnet-base-v2',
+      {
+        inputs: text,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${HF_API_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    const embedding = response.data;
+    return Array.isArray(embedding[0]) ? embedding[0] : embedding;
+
+  } catch (err: any) {
+    console.error('Error while generating embeddings:', err.response?.data || err.message);
+    return null;
+  }
 }
